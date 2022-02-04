@@ -1,5 +1,5 @@
 import React from 'react';
-import moment from 'moment';
+import moment from 'moment/min/moment-with-locales';
 import CharmCircleTick from './Icons/CharmCircleTick';
 import IcRoundEdit from './Icons/IcRoundEdit';
 import EntypoCircleWithCross from './Icons/EntypoCircleWithCross';

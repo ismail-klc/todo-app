@@ -5,7 +5,11 @@ import { NotFoundError } from "../errors/not-found-error";
 
 export const getAll = async (request: Request, response: Response) => {
     const todoRepository = getRepository(Todo);
-    const todos = await todoRepository.find();
+    const todos = await todoRepository.find({
+        order: {
+            createdAt: "DESC"
+        }
+    });
     return response.json(todos);
 }
 
@@ -26,13 +30,14 @@ export const updateTodo = async (request: Request, response: Response) => {
     const id = request.params.id;
 
     const todo = await todoRepository.findOne(id);
-    if(!todo) {
+    if (!todo) {
         throw new NotFoundError("Todo not found");
     }
 
-    await todoRepository.update(id, {
+    const newTodo = await todoRepository.save({
+        ...todo,
         ...data
     });
 
-    return response.json({ msg: "success" });
+    return response.json(newTodo);
 }

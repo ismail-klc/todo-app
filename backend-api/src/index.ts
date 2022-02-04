@@ -7,7 +7,8 @@ import { NotFoundError } from "./errors/not-found-error";
 import { errorHandler } from "./middlewares/error-handler";
 import { todoRoutes } from "./routes/todo-routes";
 import * as dotenv from "dotenv";
-import { buildConnectionOptions, createDatabase } from "typeorm-extension";
+import { createDatabase } from "typeorm-extension";
+import * as cors from 'cors';
 
 dotenv.config();
 
@@ -19,6 +20,7 @@ dotenv.config();
     // create express app
     const app = express();
     app.use(express.json());
+    app.use(cors());
 
     // simple route
     app.get("/", (req, res) => {
@@ -37,5 +39,5 @@ dotenv.config();
     app.use(errorHandler);
 
     // start express server
-    app.listen(3000, () => console.log("Listening on port 3000"));
+    app.listen(5000, () => console.log(`Listening on 5000`));
 })();

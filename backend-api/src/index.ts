@@ -6,13 +6,24 @@ import { Request, Response } from "express";
 import { NotFoundError } from "./errors/not-found-error";
 import { errorHandler } from "./middlewares/error-handler";
 import { todoRoutes } from "./routes/todo-routes";
+import * as dotenv from "dotenv";
+import { buildConnectionOptions, createDatabase } from "typeorm-extension";
 
-createConnection().then(async connection => {
-    await connection.synchronize();
+dotenv.config();
+
+(async () => {
+    await createDatabase({ ifNotExist: true });
+
+    const conn = await createConnection();
 
     // create express app
     const app = express();
     app.use(express.json());
+
+    // simple route
+    app.get("/", (req, res) => {
+        res.json({ message: "Welcome to todo app service." });
+    });
 
     // route mapping
     app.use('/api', todoRoutes);
@@ -27,6 +38,4 @@ createConnection().then(async connection => {
 
     // start express server
     app.listen(3000, () => console.log("Listening on port 3000"));
-})
-
-
+})();

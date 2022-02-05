@@ -5,10 +5,10 @@ services:
     image: postgres
     restart: always
     environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_USER=$TYPEORM_USERNAME
+      - POSTGRES_PASSWORD=$TYPEORM_PASSWORD
     ports:
-      - 5430:5432
+      - $TYPEORM_PORT:5432
     volumes: 
       - db:/var/lib/postgresql/data
   

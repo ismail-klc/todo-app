@@ -16,6 +16,7 @@ dotenv.config();
     await createDatabase({ ifNotExist: true });
 
     const conn = await createConnection();
+    await conn.synchronize();
 
     // create express app
     const app = express();
@@ -38,7 +39,7 @@ dotenv.config();
     // this is gonna catch errors and handle them
     app.use(errorHandler);
 
-    const PORT = process.env.NODE_LOCAL_PORT || 5000
+    const PORT = process.env.NODE_LOCAL_PORT || 5000;
 
     // start express server
     app.listen(PORT, () => console.log(`Listening on ${PORT}`));

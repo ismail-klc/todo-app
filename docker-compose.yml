@@ -19,7 +19,7 @@ services:
     restart: unless-stopped
     env_file: ./.env
     ports:
-      - 5000:5000
+      - $NODE_LOCAL_PORT:$NODE_DOCKER_PORT
     networks:
       - backend
       - frontend

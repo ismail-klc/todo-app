@@ -38,6 +38,8 @@ dotenv.config();
     // this is gonna catch errors and handle them
     app.use(errorHandler);
 
+    const PORT = process.env.NODE_LOCAL_PORT || 5000
+
     // start express server
-    app.listen(5000, () => console.log(`Listening on 5000`));
+    app.listen(PORT, () => console.log(`Listening on ${PORT}`));
 })();
